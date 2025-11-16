@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { fetchDestinations, setFilters, clearFilters } from '../../store/slices/destinationsSlice';
 import DestinationCard from '../../components/DestinationCard/DestinationCard';
 import SearchFilters from '../../components/SearchFilters/SearchFilters';
@@ -7,8 +8,22 @@ import './DestinationsPage.css';
 
 const DestinationsPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { items, loading, filters, pagination } = useSelector((state) => state.destinations);
   const [localFilters, setLocalFilters] = useState(filters);
+
+  useEffect(() => {
+    if (location.state?.filters) {
+      const incomingFilters = {
+        search: location.state.filters.destination || '',
+        category: '',
+        priceMin: 0,
+        priceMax: location.state.filters.maxPrice || 10000
+      };
+      setLocalFilters(incomingFilters);
+      dispatch(setFilters(incomingFilters));
+    }
+  }, [location.state, dispatch]);
 
   useEffect(() => {
     dispatch(fetchDestinations(filters));
