@@ -124,21 +124,68 @@
   bottom: -0.7rem;
   -moz-column-gap: 0.8rem;
        column-gap: 0.8rem;
-  padding: 5px 1rem;
+  padding: 8px 1.5rem;
   border-radius: 3rem;
   left: 50%;
-  transform: translate(50%);
+  transform: translate(-50%);
   justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 .home .homeContent .cardDiv .searchOptions:hover {
   background: var(--PrimaryColor);
+  transform: translate(-50%) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 .home .homeContent .cardDiv .searchOptions .icon {
   font-size: 18px;
 }
 .home .homeContent .cardDiv .searchOptions span {
   font-size: 13px;
+  font-weight: 600;
+}
+
+.home .homeContent .cardDiv .featureButtons {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--whiteColorDeam);
+}
+
+.home .homeContent .cardDiv .featureBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+  background: transparent;
+  border: 2px solid var(--SecondaryColor);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--PrimaryColor);
+  font-weight: 600;
+}
+
+.home .homeContent .cardDiv .featureBtn:hover {
+  background: var(--gradientColor);
+  color: var(--whiteColor);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.home .homeContent .cardDiv .featureBtn .icon {
+  font-size: 24px;
+}
+
+.home .homeContent .cardDiv .featureBtn span {
+  font-size: 12px;
+  text-align: center;
 }
 .home .homeContent .homeFooterIcons {
   width: 100%;

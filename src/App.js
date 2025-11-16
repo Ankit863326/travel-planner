@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
@@ -7,6 +9,9 @@ import Footer from './components/Footer/Footer';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import DestinationsPage from './pages/Destinations/DestinationsPage';
+import DestinationDetail from './pages/Destinations/DestinationDetail';
+import ItineraryBuilder from './pages/Itinerary/ItineraryBuilder';
+import MyBookings from './pages/Bookings/MyBookings';
 
 function App() {
   return (
@@ -22,8 +27,22 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/destinations" element={<DestinationsPage />} />
+        <Route path="/destinations/:id" element={<DestinationDetail />} />
+        <Route path="/itinerary" element={<ItineraryBuilder />} />
+        <Route path="/bookings" element={<MyBookings />} />
       </Routes>
       <Footer />
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

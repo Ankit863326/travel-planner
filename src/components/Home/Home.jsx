@@ -1,23 +1,36 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import "./home.css"
 import video from '../../Assets/video.mp4'
 import { GrLocation } from 'react-icons/gr'
-import { HiFilter } from 'react-icons/hi'
 import { FiFacebook } from 'react-icons/fi'
 import { AiOutlineInstagram } from 'react-icons/ai'
 import { FaTripadvisor } from 'react-icons/fa'
-import { BsListTask } from 'react-icons/bs'
+import { BsListTask, BsCalendar3, BsMap, BsStar, BsSearch } from 'react-icons/bs'
 import { TbApps } from 'react-icons/tb'
 
 import Aos from "aos"
 import 'aos/dist/aos.css'
 
-export const Home = () => {
+const Home = () => {
+  const navigate = useNavigate();
+  const [searchData, setSearchData] = useState({
+    destination: '',
+    date: '',
+    maxPrice: 5000
+  });
 
-  // use react hooks to add a scroll animation
   useEffect(()=>{
     Aos.init({duration: 2000})
   }, [])
+
+  const handleSearch = () => {
+    navigate('/destinations', { state: { filters: searchData } });
+  };
+
+  const handlePriceChange = (e) => {
+    setSearchData({ ...searchData, maxPrice: e.target.value });
+  };
 
   return (
     <section className='home'>
@@ -39,7 +52,12 @@ export const Home = () => {
           <div className="destinationInput">
             <label htmlFor="city">Search your destination:</label>
             <div className="input flex">
-              <input type="text" placeholder='Enter name here....' />
+              <input 
+                type="text" 
+                placeholder='Enter name here....' 
+                value={searchData.destination}
+                onChange={(e) => setSearchData({ ...searchData, destination: e.target.value })}
+              />
               <GrLocation className='icon' />
             </div>
           </div>
@@ -47,26 +65,53 @@ export const Home = () => {
           <div className="dateInput">
             <label htmlFor="date">Select your date:</label>
             <div className="input flex">
-              <input type="date" />
+              <input 
+                type="date" 
+                value={searchData.date}
+                onChange={(e) => setSearchData({ ...searchData, date: e.target.value })}
+              />
             </div>
           </div>
 
           <div className="priceInput">
             <div className="label_total flex">
               <label htmlFor="price">Max Price:</label>
-              <h3 className="total">$5000</h3>
+              <h3 className="total">${searchData.maxPrice}</h3>
             </div>
             <div className="input flex">
-              <input type="range" max='5000' min='1000' />
+              <input 
+                type="range" 
+                max='5000' 
+                min='1000' 
+                value={searchData.maxPrice}
+                onChange={handlePriceChange}
+              />
             </div>
           </div>
 
-          <div className="searchOptions flex">
-            <HiFilter className='icon' />
-            <span>MORE FILTERS</span>
+          <div className="searchOptions flex" onClick={handleSearch}>
+            <BsSearch className='icon' />
+            <span>SEARCH DESTINATIONS</span>
           </div>
 
-
+          <div className="featureButtons grid">
+            <button className="featureBtn" onClick={() => navigate('/itinerary')}>
+              <BsCalendar3 className='icon' />
+              <span>Itinerary Builder</span>
+            </button>
+            <button className="featureBtn" onClick={() => navigate('/bookings')}>
+              <BsListTask className='icon' />
+              <span>My Bookings</span>
+            </button>
+            <button className="featureBtn" onClick={() => navigate('/destinations')}>
+              <BsMap className='icon' />
+              <span>Explore Maps</span>
+            </button>
+            <button className="featureBtn" onClick={() => navigate('/destinations')}>
+              <BsStar className='icon' />
+              <span>Reviews</span>
+            </button>
+          </div>
 
         </div>
 
