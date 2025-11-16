@@ -46,8 +46,14 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, 'localhost', () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+if (!process.env.JWT_SECRET) {
+  console.warn('⚠️  JWT_SECRET is not defined in environment variables');
+  console.warn('⚠️  Using a default secret for development (NOT SECURE FOR PRODUCTION)');
+}
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✓ Server running on port ${PORT}`);
+  console.log(`✓ Frontend should be running on port 5000`);
 });
 
 module.exports = app;
